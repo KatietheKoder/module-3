@@ -1,0 +1,38 @@
+Short Answer
+1. Why do programmers use pseudocode Programmers use pseudocode to
+develop algorithms and to brainstorm code before building a program
+2. If you run pseudocode on your computer what would happen? Nothing
+
+Programming Assignment
+
+Write the following algorithms in pseudocode:
+
+1. Create a function that takes two numbers and prints out the greater number.
+INPUT 2 numbers
+  CALL max number
+OUTPUT answer
+
+
+2. Create a function that prints out the numbers from 1 to 100.
+FOR each number 1-100
+   COMPUTE result until 100
+THEN print the result to the console
+
+
+3. Create a function that searches for a specific entry in a phonebook.
+ FOR name in phoneEntry
+   IF phoneEntry equals name
+   Return phoneEntry
+  END IF
+END FOR
+
+4. Using the pseudocode you wrote for the previous question,
+implement it in any computer language of your choice.
+
+function phoneEntry(name) {
+  for (let i = 0, i < name.length, i++) {
+    if (name == phoneEntry[i]) {
+      return phoneEntry[0];
+    }
+  };
+}
