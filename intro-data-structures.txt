@@ -1,0 +1,64 @@
+
+A line of people at an amusement park ride.
+
+The line is composed of members, represented as strings.
+There is a front to the line, as well as a back.
+When someone enters the line, place them at the end.
+People may leave the line whenever they see fit, and those
+behind them take their place. Given the above real-world information,
+use an array data structure to code the following solution.
+
+a) Use an array input: ["Vivian", "Ava", "Josh", "Patrick", "Mike"]
+
+memberLine = ["Vivian", "Ava", "Josh", "Patrick", "Mike"];
+
+b) Insert a new person, "Mary" at the end of the line.
+In other words, you should insert Mary after Mike.
+
+memberLine.push("Mary");
+
+c) Find a person in line named "Josh." This function should return the
+position of 2 in the array, (recall that arrays are 0-based).
+
+d) Find a person in line named "Emily." What should your function
+return if it does not find the item in the array?
+
+function findMember(memberLine, searchPerson){
+ if(memberLine.indexOf(searchPerson) === -1){
+  console.log("This member is not currently in line.");
+ } else {
+  return memberLine.indexOf(searchPerson);
+  }
+}
+
+findMember(memberLine, "Josh"); //returns 2, the index of "Josh"
+findMember(memberLine, "Emily"); //returns an error message "This member is not currently in line"
+
+e) What if Ava wants to allow a friend, "Melissa", to cut in line in front
+of her? How would you code this so Melissa appears before Ava?
+
+function handleMemberCut(memberLine, newMember, memberAllowingCut) {
+  const indexToMove = memberLine.indexOf(memberAllowingCut);
+  memberLine.splice(indexToMove, 0, newMember);
+}
+
+f) If Patrick wants to leave the line, how would you delete him from
+the array?
+
+function handleMemberLeaving(memberLine, memberLeaving) {
+  const indexToRemove = memberLine.indexOf(memberLeaving);
+  memberLine.splice(indexToRemove, 1);
+}
+
+Provide another real-world example that you can model
+using a data structure.
+
+The organization of Morse Code is a binary tree.
+
+How would your data structure allow developers to access
+and manipulate the data?
+
+People with disabilities are able to use Morse Code on smart phones
+to use the ability to participate in class.
+
+http://www.kirklandreporter.com/life/kirkland-developer-with-cerebral-palsy-creates-morse-code-gboard/
