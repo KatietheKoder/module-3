@@ -48,6 +48,17 @@ To delete an item, take all of the elements in the queue one at a
 time and put them at the end of the queue, except for the last one
 which should be removed and returned.
 
+CLASS Stack
+ FUNCTION pop(queue)
+   ENTER queue array
+   CALL deleteElement function
+   FOR LOOP through elements in queue array
+   PUSH elements
+   CALL pop function on array to delete last element
+   RETURN new array
+ END FUNCTION
+END CLASS
+
 var queue = ['Jake', 'Laura', 'Thomas', 'Charlie'];
 function fifoWannabe(array) {
   for (let i = 0; i < array.length -1; i++) {
