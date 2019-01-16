@@ -30,6 +30,14 @@ the question.
 1. Given a string, reverse it using a stack. For example, the
 string "Bloc!" should be converted to "!colB".
 
+FUNCTION reverseString(string)
+  SET newString to an empty array
+  FOR each character in string
+    APPEND character to reversed
+  END FOR
+  RETURN and join newString
+END FUNCTION
+
 function reverseString(string){
   var newString = [];
   for (var i =0; i <= string.length; i++){
