@@ -90,3 +90,24 @@ function Queue() {
     return collection.shift();
   }
 }
+
+
+
+class Queue {
+  constructor(){
+    this.queue = [];
+  }
+  enqueue(element) {
+    this.queue.push(element);
+  }
+
+  dequeue() {
+     return this.queue.shift();
+  }
+
+   pop() {
+     var temp = this.queue.length - 1;
+     this.queue.splice(temp,1);
+     return temp;
+   }
+}
