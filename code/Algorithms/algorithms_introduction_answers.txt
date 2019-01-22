@@ -1,0 +1,67 @@
+1. Using proper pseudo-code, describe the following primitive algorithms:
+
+-Making coffee;
+  GET ground coffee
+  GET filter paper
+  GET water
+  GET coffee machine
+  GET mug
+
+  SET filter paper in coffee machine
+  SET ground coffee in filter paper
+  SET water in water compartment of machine
+  SET mug on placement pad in filter machine
+  SET machine button to on
+
+
+-Washing dishes;
+GET dish soap
+GET dish sponge
+GET dishes
+GET cloth
+
+WHILE dishes are dirty
+INPUT soap, sponge, cloth to dishes
+END WHILE
+
+
+A choice of your own.
+-Doing laundry
+  GET light clothes
+  GET dark clothes
+
+  PUT light clothes in washing machine
+    SET to hot
+      WHEN washing machine beeps
+    REMOVE light clothes in washing machine
+    PUT light clothes in dryer
+
+  WHILE dryer is running
+    PUT dark clothes in washing machine
+      SET to cold
+  END WHILE
+
+TAKE light clothes out of dryer
+
+PUT dark clothes in dryer
+
+
+
+
+2. As with the knot algorithm, there may be more than one way to solve the problem.
+It is essential to try to pick the best algorithm for a situation. Name three companies who
+created an algorithm that made them successful, e.g., Google's search algorithm. It doesn't need to be a tech example
+(such as a recipe or manufacturing a product). Google's algorithm produces more relevant results than other search engines;
+what about each of your cases make them stand out?
+
+-Facebook's algorithm ranks all available posts that can display on a user’s News Feed based on how likely that user will have a positive reaction.
+-Instagram's algorithm is based on interest, recency, and relationship
+-Amazon's recommended item algorithm
+
+3. Hypothesize about what constitutes an efficient algorithm versus an inefficient algorithm.
+
+An algorithm is efficient if it:
+An algorithm is efficient if it:
+-is able to minimize the number of steps needed to complete
+-is very clear and easy to understand
+-is able to accomplish a given goal with consistency and accuracy
