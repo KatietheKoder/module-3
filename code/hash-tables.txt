@@ -29,26 +29,50 @@ address, and phone number into the system and look up customers using their phon
 numbers. Store this information in a hash table. given a phone number, get name
 address of a customer.
 
-var contactsToAdd = {
-    1234567890: ['John Smith','555 4th street'],
-    5555555555: ['Jane Smith', '555 4th street'],
-    4444444444: ['Colin Hash', '555 hash street'],
-    1234567897: ['Josey Wales', '555 ECMA street'],
-    3333334444: ['John Doe', '555 5th street'],
-    1112224445: ['Jane Doe', '555 5th street'],
-};
-
-var contactsHash = makeHashTable(10000);
-
-for (var key in contactsToAdd) {
-    contactsHash.add(key, contactsToAdd[key]);
+class Customer {
+  constructor(name, address, phoneNumber) {
+    this.name = name;
+    this.address = address;
+    this.phoneNumber = phoneNumber
+  }
 }
 
-console.log(contactsHash.find('1234567890'));
+function getHashCode(person){
+  return parseInt(person.phoneNumber);
+}
 
-contactsHash.add('5641239871', ['Allen Hunn', '123 1st street Philadelphia, PA']);
+function addCustomer(array, person){
+    hashCode = getHashCode(person)
+    let hashKey = hashCode % (array.length);
+    array.splice(hashKey, 1, person);
+}
 
-console.log(contactsHash.find('5641239871'));
+function lookUpCustomer(phoneNumber){
+  var customerIndex = parseInt(phoneNumber) % customerHashMap.length;
+  return customerHashMap[customerIndex];
+}
+
+var customerHashMap = new Array(10);
+
+var Justin = new Customer("Justin", "123 Address St", "7778889999")
+var Jim = new Customer("Jim", "174 Address Ln", "1112223333")
+var Sam = new Customer("Sam", "210 Address Ave", "2223334444")
+var Monty = new Customer("Monty", "560 Address Dr", "5556667777")
+
+addCustomer(customerHashMap, Justin);
+addCustomer(customerHashMap, Jim);
+addCustomer(customerHashMap, Sam);
+addCustomer(customerHashMap, Monty);
+
+function tests(number){
+  for(let i = number; i > 0; i--){
+    var phoneNumbers = ["7778889999","1112223333","2223334444","5556667777"]
+    var randomPhoneNumber = phoneNumbers[Math.floor(Math.random()*phoneNumbers.length)];
+    console.log(randomPhoneNumber, (lookUpCustomer(randomPhoneNumber)).name);
+  }
+}
+tests(30);
+
 
 8. Build a system that allows digital copies of newspapers to be entered and searched
 by publisher and publication date. Use hash tables to store the necessary data.
