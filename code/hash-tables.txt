@@ -74,17 +74,145 @@ function tests(number){
 tests(30);
 
 
+
+7. Build a system that allows a store owner to track their store's
+inventory using a hash table for storage.
+
+class HashTable {
+  constructor() {
+     this.storage = [];
+     this.maxStorage = 200;
+  }
+
+  hash(string, max) {
+     let hash = 0;
+
+
+     for (let i = 0; i < string.length; i++) {
+        hash += string.charCodeAt(i);
+     }
+     return hash % max;
+
+
+  }
+
+     add(value) {
+     var key = value.code;
+     var index = this.hash(key, this.maxStorage);
+     var inserted = false;
+
+     if (this.storage[index] === undefined) {
+        this.storage[index] = value;
+
+     }
+      else {
+
+
+       for (var i = 0; i < storage[index].length; i++) {
+        if (storage[index][i][0] === key) {
+         storage[index][i][1] = value;
+         inserted = true;
+       }
+     }
+     if (inserted === false) {
+       storage[index].push([value]);
+     }
+      }
+     }
+      lookup({code}) {
+        let key = code;
+        let index = this.hash(key, this.maxStorage);
+
+        if(!this.storage[index]){
+            return console.log('Not found');
+        } else {
+
+        return console.log(this.storage[index]);
+
+        }
+    }
+
+
+}
+
+
+var ht = new HashTable();
+ht.add({code: 'kj154', product:'bread'});
+ht.add({code: 'pl564', product:'milk'});
+ht.add({code: 'bo156', product:'eggs'});
+
+
+ht.lookup({code: 'kj154'});
+ht.lookup({code: 'le423'});
+
+
+
 8. Build a system that allows digital copies of newspapers to be entered and searched
 by publisher and publication date. Use hash tables to store the necessary data.
 
-function createNewspaperData(publisher, publicationDate) {
-  CREATE HashMapNewspaper
-  STORE each publicationDate (key) in HashMapNewspaper with associated publisher (values)
+class HashTable {
+constructor() {
+   this.storage = [];
+   this.maxStorage = 200;
 }
 
-function searchNewspaper(publicationDate) {
-  IF HashMapNewspaper has publicationDate
-    RETURN publicationDate and publisher
-    ELSE PRINT "Sorry, publicationDate does not exist"
-  ENDIF
+hash(string, max) {
+   let hash = 0;
+
+
+   for (let i = 0; i < string.length; i++) {
+      hash += string.charCodeAt(i);
+   }
+   return hash % max;
+
+
 }
+
+   add(value) {
+   var key = value.publisher + value.date;
+   var index = this.hash(key, this.maxStorage);
+   var inserted = false;
+
+   if (this.storage[index] === undefined) {
+      this.storage[index] = value;
+
+   }
+    else {
+
+
+     for (var i = 0; i < storage[index].length; i++) {
+      if (storage[index][i][0] === key) {
+       storage[index][i][1] = value;
+       inserted = true;
+     }
+   }
+   if (inserted === false) {
+     storage[index].push([value]);
+   }
+    }
+   }
+    lookup({publisher, date}) {
+      let key = publisher + date;
+      let index = this.hash(key, this.maxStorage);
+
+      if(!this.storage[index]){
+          return console.log('Not found');
+      } else {
+
+      return console.log(this.storage[index]);
+
+      }
+  }
+
+
+}
+
+var ht = new HashTable();
+ht.add ({publisher: 'NY Times', date: '04-12-1999', headline: 'We Love Ny'});
+ht.add( {publisher: 'SF Cronicle', date: '06-10-1985', headline: 'Rice-A-Roni is our Treat!'});
+ht.add({publisher: 'Washington Post', date:'08-02-1977', headline: 'Best day Ever!'});
+
+
+ht.lookup({publisher: 'NY Times', date: '04-12-1999'});
+ht.lookup({publisher: 'SF Cronicle', date: '06-10-1985'});
+ht.lookup({publisher: 'Wall Street Journal', date: '07-12-2010'});
