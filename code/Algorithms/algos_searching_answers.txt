@@ -1,0 +1,79 @@
+1. What is a real-life scenario that uses linear search?
+Finding your way in a phone book. Finding the first 'Smith'.
+You would look through each entry until the first 'Smith' is
+found.
+
+2. What is a real-life scenario that uses binary search?
+A real-life scenario would be searching for your book in a library. If you have
+10 racks of books organized in alphabetical order, and you don't know which racks contains
+your book, check the middle rack. If not found, eliminate half of the racks based on alphabetical
+order of your book and search the middle of the halved racks. Continue the process until
+the book is found.
+
+3. Given the alphabetically sorted collection in this checkpoint,
+how many iterations would it take to find the value G using linear search?
+It would take seven iterations, since the for loop would go through each letter and
+check if it is the correct one. Since G is the seventh letter in the collection.
+
+4. Given the alphabetically sorted collection in this checkpoint, how many
+iterations would it take to find the value G using binary search?
+It would take three iterations. First iteration would eliminate collection
+from A to D. The search would start again with middle being F. Second iteration would
+eliminate letters E and F. Third iteration will find value G, since G is the middle, first, and last value.
+
+5. Given an unsorted collection of a million items, which algorithm would you
+choose between linear search and binary search? Explain your reasoning.
+Since the collection is unsorted, a linear search is better because the algorithm
+will loop through each item and check against inout value.
+
+6. Given a sorted collection of a million items, which algorithm would you choose
+between linear search and binary search? Explain your reasoning.
+Since the collection is sorted, binary search must be used for a collection this large.
+Binary search can effectively half of the collection after one iteration, if necessary.
+It can continue halving the collection as the middle changes and checked against input value.
+
+
+Programming Assignment:
+
+You and a friend have set a wager to see who can find the word
+"Albatross" in the dictionary the fastest. Write a program to allow
+you to win the bet.
+
+function binarySearch(array, word){
+  let left = 0;
+  let right = array.length - 1;
+  if(word < array[left] || word > array[right]) {
+    return false;
+  }
+  while (left <= right){
+    let middle = Math.floor((left + right)/2){
+      if(array[middle] === word) {
+       return middle;
+      } else if(array[middle] < word){
+        left = middle + 1;
+      } else {
+        right = middle - 1;
+      }
+    }
+  }
+  return null;
+}
+
+let dictionary = ["Actually", "Age", "Albatross", "Brian", "Cat"];
+binarySearch(dictionary, "Albatross")
+
+You work at a pet store, and a child has asked you to net the only
+white-spotted goldfish from the fish tank. Write a program that will help
+you net the right fish.
+
+function rightFish(array, myFish) {
+  for(let i = 0; i < array.length; i++){
+    if(array[i] === myFish){
+      return myFish;
+    }
+  }
+  return null;
+}
+
+let fishes = ['goldfish', 'Nemo', 'white-spotted goldfish', 'Dory']
+rightFish(fishes, 'white-spotted goldfish')
