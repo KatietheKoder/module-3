@@ -1,0 +1,52 @@
+1. Write pseudocode for bubble sort.
+
+BEGIN BubbleSort(list)
+
+   FOR all elements of list
+      IF list[i] > list[i+1]
+         swap(list[i], list[i+1])
+      END IF
+   END FOR
+
+   RETURN list
+
+END BubbleSort
+
+2. Write pseudocode for quicksort.
+
+PROCEDURE quickSort(left, right)
+
+   IF right-left <= 0
+      return
+   ELSE
+      pivot = A[right]
+      partition = partitionFunc(left, right, pivot)
+      quickSort(left,partition-1)
+      quickSort(partition+1,right)
+   END IF
+
+END PROCEDURE
+
+3. We talked about time complexity in a previous checkpoint,
+and how to get an idea of the efficiency of an algorithm. After looking at the
+pseudocode for the above sorting methods, identify why merge sort and quick sort
+are much more efficient than the others. Walking through each algorithm with a few
+sample collections may help.
+Merge Sorts and Quicksort takes advantage of recursion -- the ability to for the
+functions to call themselves. The other sorting algorithms have to go through loops
+"twice" together their process to work (thus O(n^2)) while the Merge Sort and Quicksort end
+up having a slight edge (O(n log n)):
+
+ Quicksort O(n log n)
+ Merge Sort O(n log n)
+ Insert Sort O(n^2)
+ Selection Sort O(n^2)
+ Bubble Sort O(n^2)
+
+4. All of the sorts addressed in this checkpoint are known as comparison sorts.
+Research bucket sort and explain how it works. What is the ideal input for bucket
+sort?
+Bucket Sort works by distributing the elements of an array into a number of buckets.
+Each bucket is then sorted individually, either using a different sorting algorithm, or by
+recursively applying the bucket sorting algorithm. Ideal inputs will be ones where resolution
+is not critical. So a bucket could be half the address on each street for a post man.
