@@ -1,0 +1,74 @@
+1. Define and compare recursion and iteration.
+Recursion is when a method in a program repeatedly calls itself whereas, iteration is when a
+set of instructions in a program are repeatedly executed.
+
+2. Name five algorithms that are commonly implemented by recursion.
+-Factorial of a number
+-Greatest common divisor
+-Fibonacci numbers
+-Recursive binary search
+-linked list print
+
+3. When should you use recursion, and when should you avoid recursion?
+Give examples for each.
+
+Recursion should be used when an algorithm can be defined as a combination of
+sub-results starting with known cases. An example of that is when you're implementing a
+function to calculate factorial. Recursion should be avoid when running straight
+through a date set. For example trying to find the maximum value in an array of numbers.
+
+4. Compare the recursive and iterative solutions to the three algorithms
+from the checkpoint (factorial, maximum, and fibonacci). What is similar,
+and what is different?
+
+What is similar is that the results are achived with both techniques. But the
+difference is how the algorithms get to their results. When iteration is used to
+run through a data set, the code looks much simpler, but doing the same with recursion
+seems to look more complicated, and the same goes for when calculating factorial using
+iteration, it just seems more complicated than when using recursion.
+
+5. Given a multi-dimensional collection (such as an array) where the
+number of dimensions is unknown, write a recursive algorithm to count
+the number of items in the entire collection.
+
+var arrayOfArrays = [[1,2,3],[4,5,6],[7, [8, 9],[[10, 11, 12],[13, 14, 15], 16]]];
+ var count = 0;
+
+ function countArrayItems(arr){
+   if(!Array.isArray(arr)){
+      count++;
+   } else {
+     for(var i = 0; i < arr.length; i++){
+       countArrayItems(arr[i]);
+     }
+   }
+   return count;
+ }
+
+  console.log(countArrayItems(arrayOfArrays));
+
+
+6. A palindrome is a word or phrase whose spelling is the same either
+direction (e.g., racecar). Write a recursive algorithm to determine if
+a given word or phrase is a palindrome.
+
+var isPalindrome = function(str) {
+    if (str.length < 2) {
+        return true;
+    }
+
+    if (firstCharacter(str) == lastCharacter(str)) {
+        return isPalindrome(middleCharacters(str));
+    }
+
+    return false;
+};
+
+7. Google Easter Egg: Google the term "recursion". Google will prompt
+you with "Did you mean: recursion". Explain why this behavior exhibits
+properties of recursion.
+
+This behaviour exhibits properties of ‘recursion’ as it plays on the fact
+that a recursive function calls itself. In the same light, when ‘recursion’
+is typed on google, it  is a self-reference to itself. It is similar to this
+saying "To understand recursion, you must first understand recursion."
