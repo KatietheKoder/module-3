@@ -42,9 +42,12 @@ function getHashCode(person){
 }
 
 function addCustomer(array, person){
-    hashCode = getHashCode(person)
-    let hashKey = hashCode % (array.length);
-    array.splice(hashKey, 1, person);
+    console.log(person)
+    const hashCode = parseInt(person.phoneNumber)
+    console.log(hashCode)
+    const hashKey = hashCode % (array.length);
+    console.log(hashKey)
+    array[hashKey] = person;
 }
 
 function lookUpCustomer(phoneNumber){
@@ -52,9 +55,10 @@ function lookUpCustomer(phoneNumber){
   return customerHashMap[customerIndex];
 }
 
-var customerHashMap = new Array(10);
+var customerHashMap = new Array();
 
 var Justin = new Customer("Justin", "123 Address St", "7778889999")
+console.log(Justin)
 var Jim = new Customer("Jim", "174 Address Ln", "1112223333")
 var Sam = new Customer("Sam", "210 Address Ave", "2223334444")
 var Monty = new Customer("Monty", "560 Address Dr", "5556667777")
@@ -64,14 +68,13 @@ addCustomer(customerHashMap, Jim);
 addCustomer(customerHashMap, Sam);
 addCustomer(customerHashMap, Monty);
 
-function tests(number){
-  for(let i = number; i > 0; i--){
-    var phoneNumbers = ["7778889999","1112223333","2223334444","5556667777"]
-    var randomPhoneNumber = phoneNumbers[Math.floor(Math.random()*phoneNumbers.length)];
-    console.log(randomPhoneNumber, (lookUpCustomer(randomPhoneNumber)).name);
-  }
+function tests(){
+  ["7778889999","1112223333","2223334444","5556667777"].forEach(number => {
+    console.log(number, (lookUpCustomer(number)));
+  })
 }
-tests(30);
+
+tests()
 
 
 
@@ -137,20 +140,20 @@ class HashTable {
 
 
 var ht = new HashTable();
-ht.add({code: 'kj154', product:'bread'});
-ht.add({code: 'pl564', product:'milk'});
-ht.add({code: 'bo156', product:'eggs'});
+ht.add('kj154', {product: 'bread', count: 5})
+ht.add('pl564', {product:'milk', count: 2});
+ht.add('bo156', {product:'eggs', count: 12});
 
 
-ht.lookup({code: 'kj154'});
-ht.lookup({code: 'le423'});
-
+ht.lookup('kj154') => {product:'bread', count: 5}
+ht.lookup('pl564') => {product:'milk', count: 2}
+ht.lookup('bo156') => {product:'eggs', count: 12}
 
 
 8. Build a system that allows digital copies of newspapers to be entered and searched
 by publisher and publication date. Use hash tables to store the necessary data.
 
-class HashTable {
+class NewspaperDirectory {
 constructor() {
    this.storage = [];
    this.maxStorage = 200;
@@ -208,11 +211,11 @@ hash(string, max) {
 }
 
 var ht = new HashTable();
-ht.add ({publisher: 'NY Times', date: '04-12-1999', headline: 'We Love Ny'});
-ht.add( {publisher: 'SF Cronicle', date: '06-10-1985', headline: 'Rice-A-Roni is our Treat!'});
-ht.add({publisher: 'Washington Post', date:'08-02-1977', headline: 'Best day Ever!'});
+ht.add('NY Times', {date: '04-12-1999', headline: 'We Love Ny'});
+ht.add('SF Cronicle', {date: '06-10-1985', headline: 'Rice-A-Roni is our Treat!'});
+ht.add('Washington Post', {date:'08-02-1977', headline: 'Best day Ever!'});
 
 
-ht.lookup({publisher: 'NY Times', date: '04-12-1999'});
-ht.lookup({publisher: 'SF Cronicle', date: '06-10-1985'});
-ht.lookup({publisher: 'Wall Street Journal', date: '07-12-2010'});
+ht.lookup('NY Times') => {date: '04-12-1999', headline: 'We Love Ny'}
+ht.lookup('SF Cronicle') => {date: '06-10-1985', headline: 'Rice-A-Roni is our Treat!'}
+ht.lookup('Wall Street Journal') => {date:'08-02-1977', headline: 'Best day Ever!'}
