@@ -14,18 +14,34 @@ END BubbleSort
 
 2. Write pseudocode for quicksort.
 
-PROCEDURE quickSort(left, right)
+BEGIN QuickSort(list):
+    IF list length is less than or equal to one:
+        RETURN list
+    END if;
+    RETURN PartitionList(list)
+END QuickSort;
 
-   IF right-left <= 0
-      return
-   ELSE
-      pivot = A[right]
-      partition = partitionFunc(left, right, pivot)
-      quickSort(left,partition-1)
-      quickSort(partition+1,right)
-   END IF
+BEGIN PartitionList(list):
+    pivot = list[lastIndex]
+    Declare leftList and rightList
+    currentIndex = 0
+    wallIndex = 1
 
-END PROCEDURE
+    SET first item of right list as pivot.
+
+    WHILE i is less than length minus one:
+        currentItem = list[i]
+        IF currentItem is less than pivot
+            swap currentItem with item at wallIndex
+            increment currentIndex
+        ELSE:
+            do nothing
+        END IF else;
+    increment i
+    END while;
+
+    RETURN combined list ( QuickSort(leftList) AND QuickSort(rightList) )
+end PartitionList;
 
 3. We talked about time complexity in a previous checkpoint,
 and how to get an idea of the efficiency of an algorithm. After looking at the
