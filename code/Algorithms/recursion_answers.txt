@@ -31,21 +31,20 @@ iteration, it just seems more complicated than when using recursion.
 number of dimensions is unknown, write a recursive algorithm to count
 the number of items in the entire collection.
 
-var arrayOfArrays = [[1,2,3],[4,5,6],[7, [8, 9],[[10, 11, 12],[13, 14, 15], 16]]];
- var count = 0;
+function count(array){
+      if(!Array.isArray(array)){
+        return 1;
+      }
+      else {
+        let counter = 0;
+        array.forEach(arrayItem => {
+          counter += count(arrayItem);
+        });
+        return counter;
+      }
+    }
 
- function countArrayItems(arr){
-   if(!Array.isArray(arr)){
-      count++;
-   } else {
-     for(var i = 0; i < arr.length; i++){
-       countArrayItems(arr[i]);
-     }
-   }
-   return count;
- }
-
-  console.log(countArrayItems(arrayOfArrays));
+    console.log(count([1,2,1,[1,2],[1,2],[1,2,3,[1,2]]]));
 
 
 6. A palindrome is a word or phrase whose spelling is the same either
