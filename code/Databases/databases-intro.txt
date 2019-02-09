@@ -54,14 +54,22 @@ The email and sign-up date for the user named DeAndre Data.
 The user ID for the user with email 'aleesia.algorithm@uw.edu'.
 All the columns for the user ID equal to 4.
 
-SELECT email, signup
-FROM users
-WHERE name = 'Deandre Data'
+SELECT email, signup FROM users
+WHERE name = 'DeAndre Data';
 
-SELECT userid
-FROM users
-WHERE email = 'aleesia.algorithm@uw.edu'
+email: datad@comcast.net; signup: 2008-01-20T00:00:00.000Z
+https://www.db-fiddle.com/f/iQAEYktwysXqcLQHv2dwbc/3
 
-SELECT *
-FROM users
-WHERE userid = 4
+b. The user ID for the user with email 'aleesia.algorithm@uw.edu'.
+SELECT userid FROM users
+WHERE email = 'aleesia.algorithm@uw.edu';
+
+userid: 1
+https://www.db-fiddle.com/f/iQAEYktwysXqcLQHv2dwbc/4
+
+c. All the columns for the user ID equal to 4.
+SELECT * FROM users
+WHERE userid = 4;
+
+userid: 4; name: Brandy Boolean; email: bboolean@nasa.gov; signup: 1999-10-15T00:00:00.000Z
+https://www.db-fiddle.com/f/iQAEYktwysXqcLQHv2dwbc/5
