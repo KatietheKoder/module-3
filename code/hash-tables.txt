@@ -81,141 +81,143 @@ tests()
 7. Build a system that allows a store owner to track their store's
 inventory using a hash table for storage.
 
-class HashTable {
-  constructor() {
-     this.storage = [];
-     this.maxStorage = 200;
-  }
+class StoreInventory {
+ constructor(inventory, inventoryLimit){
+   this.inventory = [];
+   this.inventoryLimit = 100;
+ }
 
-  hash(string, max) {
-     let hash = 0;
+ hash(string, max){
+ let hash = 0;
+ for (let i =0; i < string.length; i++) {
+   hash += string.charCodeAt(i);
+ }
+   return hash % max;
+ }
 
-
-     for (let i = 0; i < string.length; i++) {
-        hash += string.charCodeAt(i);
-     }
-     return hash % max;
-
-
-  }
-
-     add(value) {
-     var key = value.code;
-     var index = this.hash(key, this.maxStorage);
-     var inserted = false;
-
-     if (this.storage[index] === undefined) {
-        this.storage[index] = value;
-
-     }
-      else {
-
-
-       for (var i = 0; i < storage[index].length; i++) {
-        if (storage[index][i][0] === key) {
-         storage[index][i][1] = value;
+ add(key, value) {
+   let index = this.hash(key, this.inventoryLimit);
+   if (this.inventory[index] === undefined) {
+     this.inventory[index] = [[key, value]];
+   } else {
+     let inserted = false;
+     for (let i = 0; i < this.inventory[index].length; i++) {
+       if (this.inventory[index][i][0] === key) {
+         this.inventory[index][i][1] = value;
          inserted = true;
        }
      }
      if (inserted === false) {
-       storage[index].push([value]);
+       this.inventory[index].push([key, value]);
      }
-      }
+   }
+ }
+
+  remove(key) {
+   let index = this.hash(key, this.inventoryLimit);
+   if (this.inventory[index].length === 1 && this.inventory[index][0][0] === key) {
+     delete this.inventory[index];
+   } else {
+     for (var i = 0; i < this.inventory[index]; i++) {
+       if (this.inventory[index][i][0] === key) {
+         delete this.inventory[index][i];
+       }
      }
-      lookup({code}) {
-        let key = code;
-        let index = this.hash(key, this.maxStorage);
+   }
+ }
 
-        if(!this.storage[index]){
-            return console.log('Not found');
-        } else {
+ lookup(key) {
+   let index = this.hash(key, this.inventoryLimit);
+   if (this.inventory[index] === undefined) {
+     console.log("Item not found. Add new item?");
+   } else {
+     for (let i = 0; i < this.inventory[index].length; i++) {
+       if (this.inventory[index][i][0] === key) {
+         console.log("Total " + this.inventory[index][i][0] + "s:" + " " + this.inventory[index][i][1]);
+       }
+     }
+   }
+ }
 
-        return console.log(this.storage[index]);
-
-        }
-    }
-
+ print() {
+   console.log(this.inventory);
+ }
 
 }
 
+let items = new StoreInventory();
+items.add('avocado', 30);
+items.add('banana', 40);
+items.add('carrot', 50);
+items.add('donut', 12);
+items.print();
+items.lookup('butter');
+items.add('avocados', 70);
+items.remove('banana');
+items.print();
 
-var ht = new HashTable();
-ht.add('kj154', {product: 'bread', count: 5})
-ht.add('pl564', {product:'milk', count: 2});
-ht.add('bo156', {product:'eggs', count: 12});
-
-
-ht.lookup('kj154') => {product:'bread', count: 5}
-ht.lookup('pl564') => {product:'milk', count: 2}
-ht.lookup('bo156') => {product:'eggs', count: 12}
 
 
 8. Build a system that allows digital copies of newspapers to be entered and searched
 by publisher and publication date. Use hash tables to store the necessary data.
 
-class NewspaperDirectory {
-constructor() {
-   this.storage = [];
-   this.maxStorage = 200;
+class Newspaper{
+ constructor(newspaper, storageLimit){
+ this.newspaper = [];
+ this.storageLimit = 100;
+ }
+
+hash(string, max){
+let hash = 0;
+for (let i =0; i < string.length; i++) {
+ hash += string.charCodeAt(i);
+}
+ return hash % max;
 }
 
-hash(string, max) {
-   let hash = 0;
-
-
-   for (let i = 0; i < string.length; i++) {
-      hash += string.charCodeAt(i);
-   }
-   return hash % max;
-
-
-}
-
-   add(value) {
-   var key = value.publisher + value.date;
-   var index = this.hash(key, this.maxStorage);
-   var inserted = false;
-
-   if (this.storage[index] === undefined) {
-      this.storage[index] = value;
-
-   }
-    else {
-
-
-     for (var i = 0; i < storage[index].length; i++) {
-      if (storage[index][i][0] === key) {
-       storage[index][i][1] = value;
+add(publisher, date, article) {
+ let key = publisher + date;
+ let index = this.hash(key, this.storageLimit);
+ if (this.newspaper[index] === undefined) {
+   this.newspaper[index] = [[key, article]];
+ } else {
+   let inserted = false;
+   for (let i = 0; i < this.newspaper[index].length; i++) {
+     if (this.newspaper[index][i][0] === key) {
+       this.inventory[index][i][1] = article;
        inserted = true;
      }
    }
    if (inserted === false) {
-     storage[index].push([value]);
+     this.newspaper[index].push([key, article]);
    }
-    }
+ }
+}
+
+lookup(publisher, date) {
+ let key = publisher + date;
+ let index = this.hash(key, this.storageLimit);
+ if (this.newspaper[index] === undefined) {
+   console.log("Article not found.");
+ } else {
+   for (let i = 0; i < this.newspaper[index].length; i++) {
+     if (this.newspaper[index][i][0] || this.newspaper[index][i][1] === key) {
+       console.log("Article found: " + this.newspaper[index]);
+     }
    }
-    lookup({publisher, date}) {
-      let key = publisher + date;
-      let index = this.hash(key, this.maxStorage);
+ }
+}
 
-      if(!this.storage[index]){
-          return console.log('Not found');
-      } else {
-
-      return console.log(this.storage[index]);
-
-      }
-  }
-
+print() {
+ console.log(this.newspaper);
+}
 
 }
 
-var ht = new HashTable();
-ht.add('NY Times', {date: '04-12-1999', headline: 'We Love Ny'});
-ht.add('SF Cronicle', {date: '06-10-1985', headline: 'Rice-A-Roni is our Treat!'});
-ht.add('Washington Post', {date:'08-02-1977', headline: 'Best day Ever!'});
-
-
-ht.lookup('NY Times') => {date: '04-12-1999', headline: 'We Love Ny'}
-ht.lookup('SF Cronicle') => {date: '06-10-1985', headline: 'Rice-A-Roni is our Treat!'}
-ht.lookup('Wall Street Journal') => {date:'08-02-1977', headline: 'Best day Ever!'}
+let stories = new Newspaper();
+stories.add('Herald', '2019', 'E.coli Outbreak! No more salads for you!');
+stories.add('CNN', '2018', 'Stay home and bust out the hot cocoa! A blizzard is coming!');
+stories.add('USA Today', '2020', 'Blockbuster is making a comeback!');
+stories.print();
+stories.lookup('Duck! Watch out for the flying pigs!');
+stories.lookup('E.coli Outbreak! No more salads for you!');
