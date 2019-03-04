@@ -1,0 +1,284 @@
+1. How do you find related data held in two separate data tables?
+You use a JOIN statement which combines one table’s foreign key with another table’s primary key.
+The resulting data outputted combines the two related pieces of data into one table.
+
+2. Explain, in your own words, the difference between an INNER JOIN, LEFT OUTER JOIN, and
+RIGHT OUTER JOIN. Give a real-world example for each.
+
+INNER JOIN: Returns records that have matching values in both tables. An example would be returning weather data in two tables ones that had city, city id, weather and longitude. We could combine them and return a table with the city and weather.
+LEFT OUTER JOIN: Returns records from left table and matched records for right table. If we had a table A with customer_id, customer name, email and an address, and table B with order_id, order_date, amount and customer_id, we could do a
+Left Join to get the names of customers who were in the database but may not have made an order, as it’s combining all the data from Table A (customers) with the matching data from Table B (orders).
+RIGHT OUTER JOIN: Returns all records from the right table and shared records. In the above case, we could get a list of all the orders (Table B) regardless of if the people who ordered are in the customer table (Table A).
+
+3. Define primary key and foreign key. Give a real-world example for each.
+Primary key: unique identifier of one table
+Foreign key:
+
+4. Define aliasing.
+Shortened syntax used for abbreviations for each table name.
+
+5. Change this query so that you are using aliasing:
+
+SELECT professor.name, compensation.salary,
+compensation.vacation_days FROM professor JOIN
+compensation ON professor.id =
+compensation.professor_id;
+
+SELECT p.name, c.name, c.vacation_days
+FROM professor AS p
+JOIN compensation as c
+ON p.id = c.professor.id
+
+6. Why would you use a NATURAL JOIN? Give a real-world example.
+A NATURAL JOIN will take data from two tables that have similar
+columns and combine them into one table, but it will not repeat rows.
+For example, if you have table A which has a category_id and category_name, and table b,
+which has a category_id and a product_name, a NATURAL JOIN will result in a table that has
+a category_id, category_name and product_name.
+
+
+7. Using this Employee schema and data, write queries to find the following information:
+List all employees and all shifts.
+
+SELECT employees.name, shifts.date, shifts.start_time, shifts.end_time
+FROM scheduled_shifts
+JOIN employees ON employees.id = scheduled_shifts.employess_id
+JOIN shifts ON shifts.id = scheduled_shifts.shift_id;
+
+8. Using this Adoption schema and data, please write queries to retrieve the following information and include the results:
+
+SELECT volunteers.first_name, volunteers.last_name, dogs.name
+FROM volunteers
+LEFT OUTER JOIN dogs ON dogs.id = volunteers.
+
+a. Create a list of all volunteers. If the volunteer is fostering a dog, include each dog as well.
+   SELECT volunteers.first_name, volunteers.last_name, dogs.name
+   FROM volunteers
+   LEFT OUTER JOIN dogs ON dogs.id = volunteers.foster_dog_id;
+
+
+---
+
+**Query #1**
+
+    SELECT volunteers.first_name, volunteers.last_name, dogs.name
+       FROM volunteers
+       LEFT OUTER JOIN dogs ON dogs.id = volunteers.foster_dog_id;
+
+| first_name | last_name  | name      |
+| ---------- | ---------- | --------- |
+| Rubeus     | Hagrid     | Munchkin  |
+| Marjorie   | Dursley    | Marmaduke |
+| Sirius     | Black      |           |
+| Remus      | Lupin      |           |
+| Albus      | Dumbledore |           |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/tpodLv3A43VL4gHqohqx2o/0)
+
+
+b. The cat's name, adopter's name, and adopted date for each cat adopted within the past month to be
+displayed as part of the "Happy Tail" social media promotion which posts recent successful adoptions.
+SELECT cats.name, adopters.first_name, adopters.last_name, cat_adoptions.date
+FROM cat_adoptions
+JOIN adopters ON cat_adoptions.adopter_id = adopters.id
+JOIN cats ON cat_adoptions.cat_id = cats.id
+WHERE cat_adoptions.date > CURRENT_DATE - INTERVAL '30 DAYS';
+
+
+**Query #1**
+
+    SELECT cats.name, adopters.first_name, adopters.last_name, cat_adoptions.date
+    FROM cat_adoptions
+    JOIN adopters ON cat_adoptions.adopter_id = adopters.id
+    JOIN cats ON cat_adoptions.cat_id = cats.id
+    WHERE cat_adoptions.date > CURRENT_DATE - INTERVAL '30 DAYS';
+
+| name     | first_name | last_name | date                     |
+| -------- | ---------- | --------- | ------------------------ |
+| Mushi    | Arabella   | Figg      | 2019-02-03T00:00:00.000Z |
+| Victoire | Argus      | Filch     | 2019-02-08T00:00:00.000Z |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/tpodLv3A43VL4gHqohqx2o/0)
+
+c. Create a list of adopters who have not yet chosen a dog to adopt.
+//Ask for postgres help
+
+SELECT adopters.first_name, adopters.last_name
+FROM adopters
+LEFT JOIN dog_adoptions ON adopters.id = dog_adoptions.adopter_id
+WHERE dog_adoptions.adopter_id IS NULL;
+
+d. Lists of all cats and all dogs who have not been adopted.
+SELECT *
+FROM dog_adoptions
+FULL OUTER JOIN cat_adoptions ON true
+FULL OUTER JOIN dogs ON dogs.id = dog_adoptions.dog_id
+FULL OUTER JOIN cats ON cats.id = cat_adoptions.cat_id
+WHERE dog_adoptions.dog_id IS NULL AND cat_adoptions.cat_id IS NULL;
+
+e. The name of the person who adopted Rosco.
+    SELECT first_name, last_name
+    FROM adopters
+    INNER JOIN dog_adoptions
+    ON adopters.id = dog_adoptions.adopter_id
+    WHERE dog_adoptions.dog_id = 10007;
+
+**Query #1**
+
+    SELECT first_name, last_name
+        FROM adopters
+        INNER JOIN dog_adoptions
+        ON adopters.id = dog_adoptions.adopter_id
+        WHERE dog_adoptions.dog_id = 10007;
+
+| first_name | last_name |
+| ---------- | --------- |
+| Argus      | Filch     |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/tpodLv3A43VL4gHqohqx2o/0)
+
+
+9. Using this Library schema and data, write queries applying the following scenarios and include the results:
+
+a. To determine if the library should buy more copies of a given book, please provide the names and position,
+in order, of all of the patrons with a hold (request for a book with all copies checked out) on "Advanced Potion-Making".
+
+
+---
+
+**Query #1**
+
+    SELECT patrons.name, holds.rank, books.isbn
+    FROM patrons
+    JOIN holds ON patrons.id = holds.patron_id
+    JOIN books ON books.isbn = holds.isbn
+    WHERE books.isbn = '9136884926'
+    ORDER BY holds.rank;
+
+| name           | rank | isbn       |
+| -------------- | ---- | ---------- |
+| Terry Boot     | 1    | 9136884926 |
+| Cedric Diggory | 2    | 9136884926 |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/j4EGoWzHWDBVtiYzB9ygC4/0)
+
+b. List all of the library patrons. If they have one or more books checked out, list the books with the patrons.
+
+**Schema (PostgreSQL v9.6)**
+
+    CREATE TABLE books (
+      "isbn"   VARCHAR(16),
+      "title"  VARCHAR(64),
+      "author" VARCHAR(32),
+
+      PRIMARY KEY ("isbn")
+    );
+
+    CREATE TABLE patrons (
+      "id"   INTEGER,
+      "name" VARCHAR(32),
+
+      PRIMARY KEY ("id")
+    );
+
+    CREATE TABLE transactions (
+      "id"               INTEGER,
+      "patron_id"        INTEGER,
+      "isbn"             VARCHAR(16),
+      "checked_out_date" DATE,
+      "checked_in_date"  DATE,
+
+      FOREIGN KEY ("patron_id")
+        REFERENCES "patrons" ("id")
+        ON DELETE CASCADE,
+
+      FOREIGN KEY ("isbn")
+        REFERENCES "books" ("isbn")
+        ON DELETE CASCADE,
+
+      PRIMARY KEY ("id")
+    );
+
+    CREATE TABLE holds (
+      "id"        INTEGER,
+      "patron_id" INTEGER,
+      "isbn"      VARCHAR(16),
+      "rank"      INTEGER,
+      "date"      DATE,
+
+      FOREIGN KEY ("patron_id")
+        REFERENCES "patrons" ("id")
+        ON DELETE CASCADE,
+
+      FOREIGN KEY ("isbn")
+        REFERENCES "books" ("isbn")
+        ON DELETE CASCADE,
+
+      PRIMARY KEY ("id")
+    );
+
+    INSERT INTO books
+      ("isbn",        "title",                                  "author")
+    VALUES
+      ('1840918626', 'Hogwarts: A History',                     'Bathilda Bagshot'),
+      ('3458400871', 'Fantastic Beasts and Where to Find Them', 'Newt Scamander'),
+      ('9136884926', 'Advanced Potion-Making',                  'Libatius Borage');
+
+    INSERT INTO patrons
+      ("id", "name")
+    VALUES
+      ( 1,   'Hermione Granger'),
+      ( 2,   'Terry Boot'),
+      ( 3,   'Padma Patil'),
+      ( 4,   'Cho Chang'),
+      ( 5,   'Cedric Diggory');
+
+    INSERT INTO transactions
+      ("id", "patron_id", "isbn",       "checked_out_date",                        "checked_in_date")
+    VALUES
+     ( 1,     1,          '1840918626',  CURRENT_DATE - INTERVAL '6 YEARS, 1 DAY',  CURRENT_DATE - INTERVAL '6 YEARS'),
+     ( 2,     4,          '9136884926',  CURRENT_DATE - INTERVAL '6 YEARS, 1 DAY',  CURRENT_DATE - INTERVAL '6 YEARS'),
+     ( 3,     2,          '3458400871',  CURRENT_DATE - INTERVAL '6 YEARS, 1 DAY',  CURRENT_DATE - INTERVAL '6 YEARS'),
+     ( 4,     3,          '3458400871',  CURRENT_DATE - INTERVAL '7 DAYS',          CURRENT_DATE - INTERVAL '4 DAYS'),
+     ( 5,     2,          '9136884926',  CURRENT_DATE - INTERVAL '3 DAYS',          NULL),
+     ( 6,     1,          '3458400871',  CURRENT_DATE - INTERVAL '3 DAYS',          CURRENT_DATE - INTERVAL '1 DAY'),
+     ( 7,     5,          '3458400871',  CURRENT_DATE - INTERVAL '1 DAY',           NULL);
+
+    INSERT INTO holds
+      ("id", "patron_id", "isbn",       "rank", "date")
+    VALUES
+      ( 1,    4,          '3458400871',  1,     CURRENT_DATE - INTERVAL '1 DAY'),
+      ( 2,    5,          '9136884926',  2,     CURRENT_DATE - INTERVAL '1 DAYS'),
+      ( 3,    2,          '9136884926',  1,     CURRENT_DATE - INTERVAL '2 DAYS');
+
+
+---
+
+**Query #1**
+
+    SELECT patrons.name,
+    MAX((CASE WHEN books.title IN (SELECT title FROM books WHERE transactions.checked_in_date IS NULL) THEN books.title ELSE NULL END))
+    FROM patrons
+    INNER JOIN transactions ON transactions.patron_id = patrons.id
+    INNER JOIN books ON books.isbn = transactions.isbn
+    GROUP BY patrons.name;
+
+| name             | max                                     |
+| ---------------- | --------------------------------------- |
+| Cedric Diggory   | Fantastic Beasts and Where to Find Them |
+| Cho Chang        |                                         |
+| Hermione Granger |                                         |
+| Padma Patil      |                                         |
+| Terry Boot       | Advanced Potion-Making                  |
+
+---
+
+[View on DB Fiddle](https://www.db-fiddle.com/f/j4EGoWzHWDBVtiYzB9ygC4/0)
