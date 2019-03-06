@@ -8,11 +8,24 @@ RIGHT OUTER JOIN. Give a real-world example for each.
 INNER JOIN: Returns records that have matching values in both tables. An example would be returning weather data in two tables ones that had city, city id, weather and longitude. We could combine them and return a table with the city and weather.
 LEFT OUTER JOIN: Returns records from left table and matched records for right table. If we had a table A with customer_id, customer name, email and an address, and table B with order_id, order_date, amount and customer_id, we could do a
 Left Join to get the names of customers who were in the database but may not have made an order, as it’s combining all the data from Table A (customers) with the matching data from Table B (orders).
+
 RIGHT OUTER JOIN: Returns all records from the right table and shared records. In the above case, we could get a list of all the orders (Table B) regardless of if the people who ordered are in the customer table (Table A).
 
 3. Define primary key and foreign key. Give a real-world example for each.
 Primary key: unique identifier of one table
-Foreign key:
+Foreign key: column of data (that is not primary key data) native to the 'foreign' table it is joining with which matches the original table's primary key data.
+
+Consider a database of a store with two data tables - one to track
+the data of their rewards members, and one to track the data of transactions.
+The rewards table will contain columns for member id, first name, and last name.
+The unique identifier or 'primary key' for the rewards table is the column of member ids.
+The transactions table will contain columns for transaction number, member id if the customer
+is a member, and transaction amount. The unique identifier or 'primary key' for the transactions
+table is the transaction number. The foreign key in this case would be the member id column from
+the transaction table - it shares the primary key data from the rewards table, but it is not primary
+key data for the transactions table. In fact, the member id data in the transactions table would most
+likely be non-unique and repeated often if members have multiple transactions at that store. The two
+tables would be able to join, though, based on this shared data.
 
 4. Define aliasing.
 Shortened syntax used for abbreviations for each table name.
