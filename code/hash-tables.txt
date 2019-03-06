@@ -81,143 +81,100 @@ tests()
 7. Build a system that allows a store owner to track their store's
 inventory using a hash table for storage.
 
-class StoreInventory {
- constructor(inventory, inventoryLimit){
-   this.inventory = [];
-   this.inventoryLimit = 100;
- }
-
- hash(string, max){
- let hash = 0;
- for (let i =0; i < string.length; i++) {
-   hash += string.charCodeAt(i);
- }
-   return hash % max;
- }
-
- add(key, value) {
-   let index = this.hash(key, this.inventoryLimit);
-   if (this.inventory[index] === undefined) {
-     this.inventory[index] = [[key, value]];
-   } else {
-     let inserted = false;
-     for (let i = 0; i < this.inventory[index].length; i++) {
-       if (this.inventory[index][i][0] === key) {
-         this.inventory[index][i][1] = value;
-         inserted = true;
-       }
-     }
-     if (inserted === false) {
-       this.inventory[index].push([key, value]);
-     }
-   }
- }
-
-  remove(key) {
-   let index = this.hash(key, this.inventoryLimit);
-   if (this.inventory[index].length === 1 && this.inventory[index][0][0] === key) {
-     delete this.inventory[index];
-   } else {
-     for (var i = 0; i < this.inventory[index]; i++) {
-       if (this.inventory[index][i][0] === key) {
-         delete this.inventory[index][i];
-       }
-     }
-   }
- }
-
- lookup(key) {
-   let index = this.hash(key, this.inventoryLimit);
-   if (this.inventory[index] === undefined) {
-     console.log("Item not found. Add new item?");
-   } else {
-     for (let i = 0; i < this.inventory[index].length; i++) {
-       if (this.inventory[index][i][0] === key) {
-         console.log("Total " + this.inventory[index][i][0] + "s:" + " " + this.inventory[index][i][1]);
-       }
-     }
-   }
- }
-
- print() {
-   console.log(this.inventory);
- }
-
+class Inventory {
+  constructor(inventoryItem, quantity, inventoryId) {
+    this.inventoryItem = inventoryItem;
+    this.quantity = quantity;
+    this.inventoryId = inventoryId
+  }
 }
 
-let items = new StoreInventory();
-items.add('avocado', 30);
-items.add('banana', 40);
-items.add('carrot', 50);
-items.add('donut', 12);
-items.print();
-items.lookup('butter');
-items.add('avocados', 70);
-items.remove('banana');
-items.print();
+function getHashCode(item){
+  return parseInt(item.inventoryId);
+}
 
+function addItem(array, item){
+    console.log(item)
+    const hashCode = parseInt(item.inventoryId)
+    console.log(hashCode)
+    const hashKey = hashCode % (array.length);
+    console.log(hashKey)
+    array[hashKey] = item;
+}
+
+function lookUpItem(inventoryId){
+  var itemIndex = parseInt(inventoryId) % inventoryHashMap.length;
+  return inventoryHashMap[itemIndex];
+}
+
+var inventoryHashMap = new Array();
+
+var bike = new Inventory("bike", 12, "011243")
+console.log(bike)
+var ball = new Inventory("ball", 67, "011244")
+var kite = new Inventory("kite", 42, "011245")
+var doll = new Inventory("doll", 36, "011246")
+
+addItem(inventoryHashMap, bike);
+addItem(inventoryHashMap, ball);
+addItem(inventoryHashMap, kite);
+addItem(inventoryHashMap, doll);
+
+function tests(){
+  ["011243","011244","011245","011246"].forEach(number => {
+    console.log(number, (lookUpItem(number)));
+  })
+}
+
+tests()
 
 
 8. Build a system that allows digital copies of newspapers to be entered and searched
 by publisher and publication date. Use hash tables to store the necessary data.
 
-class Newspaper{
- constructor(newspaper, storageLimit){
- this.newspaper = [];
- this.storageLimit = 100;
- }
-
-hash(string, max){
-let hash = 0;
-for (let i =0; i < string.length; i++) {
- hash += string.charCodeAt(i);
-}
- return hash % max;
+class Newspaper {
+  constructor(publisher, date, article) {
+    this.publisher = publisher;
+    this.date = date;
+    this.article = article
+  }
 }
 
-add(publisher, date, article) {
- let key = publisher + date;
- let index = this.hash(key, this.storageLimit);
- if (this.newspaper[index] === undefined) {
-   this.newspaper[index] = [[key, article]];
- } else {
-   let inserted = false;
-   for (let i = 0; i < this.newspaper[index].length; i++) {
-     if (this.newspaper[index][i][0] === key) {
-       this.inventory[index][i][1] = article;
-       inserted = true;
-     }
-   }
-   if (inserted === false) {
-     this.newspaper[index].push([key, article]);
-   }
- }
+function getHashCode(item){
+  return parseInt(item.article);
 }
 
-lookup(publisher, date) {
- let key = publisher + date;
- let index = this.hash(key, this.storageLimit);
- if (this.newspaper[index] === undefined) {
-   console.log("Article not found.");
- } else {
-   for (let i = 0; i < this.newspaper[index].length; i++) {
-     if (this.newspaper[index][i][0] || this.newspaper[index][i][1] === key) {
-       console.log("Article found: " + this.newspaper[index]);
-     }
-   }
- }
+function addItem(array, item){
+    console.log(item)
+    const hashCode = parseInt(item.inventoryId)
+    console.log(hashCode)
+    const hashKey = hashCode % (array.length);
+    console.log(hashKey)
+    array[hashKey] = item;
 }
 
-print() {
- console.log(this.newspaper);
+function lookUpItem(article){
+  var itemIndex = parseInt(article) % inventoryHashMap.length;
+  return inventoryHashMap[itemIndex];
 }
 
+var inventoryHashMap = new Array();
+
+var herald = new Newspaper("herald", "2019", "E.coli Outbreak! No more salads for you!")
+console.log(herald)
+var cnn = new Newspaper("cnn", "2018", "Stay home and bust out the hot cocoa! A blizzard is coming!")
+var usaToday = new Newspaper("usaToday", "2020", "Blockbuster is making a comeback!")
+
+
+addItem(inventoryHashMap, herald);
+addItem(inventoryHashMap, cnn);
+addItem(inventoryHashMap, usaToday);
+
+
+function tests(){
+  ["herald","cnn","usaToday"].forEach(number => {
+    console.log(number, (lookUpItem(number)));
+  })
 }
 
-let stories = new Newspaper();
-stories.add('Herald', '2019', 'E.coli Outbreak! No more salads for you!');
-stories.add('CNN', '2018', 'Stay home and bust out the hot cocoa! A blizzard is coming!');
-stories.add('USA Today', '2020', 'Blockbuster is making a comeback!');
-stories.print();
-stories.lookup('Duck! Watch out for the flying pigs!');
-stories.lookup('E.coli Outbreak! No more salads for you!');
+tests()
