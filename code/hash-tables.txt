@@ -33,48 +33,35 @@ class Customer {
   constructor(name, address, phoneNumber) {
     this.name = name;
     this.address = address;
-    this.phoneNumber = phoneNumber
+    this.phoneNumber = phoneNumber;
+  }
+
+  description(){
+    return "Name: " + this.name + ", Address: " + this.address;
   }
 }
 
-function getHashCode(person){
-  return parseInt(person.phoneNumber);
-}
+function runSalesSystem(){
 
-function addCustomer(array, person){
-    console.log(person)
-    const hashCode = parseInt(person.phoneNumber)
-    console.log(hashCode)
-    const hashKey = hashCode % (array.length);
-    console.log(hashKey)
-    array[hashKey] = person;
-}
+  var Justin = new Customer("Justin", "123 Address St", "7778889999")
+  var Jim = new Customer("Jim", "174 Address Ln", "1112223333")
+  var Sam = new Customer("Sam", "210 Address Ave", "2223334444")
+  var Monty = new Customer("Monty", "560 Address Dr", "5556667777")
 
-function lookUpCustomer(phoneNumber){
-  var customerIndex = parseInt(phoneNumber) % customerHashMap.length;
-  return customerHashMap[customerIndex];
-}
+  var salesSystem = {}
 
-var customerHashMap = new Array();
+  salesSystem[Justin.phoneNumber] = Justin;
+  salesSystem[Jim.phoneNumber] = Jim;
+  salesSystem[Sam.phoneNumber] = Sam;
+  salesSystem[Monty.phoneNumber] = Monty;
 
-var Justin = new Customer("Justin", "123 Address St", "7778889999")
-console.log(Justin)
-var Jim = new Customer("Jim", "174 Address Ln", "1112223333")
-var Sam = new Customer("Sam", "210 Address Ave", "2223334444")
-var Monty = new Customer("Monty", "560 Address Dr", "5556667777")
 
-addCustomer(customerHashMap, Justin);
-addCustomer(customerHashMap, Jim);
-addCustomer(customerHashMap, Sam);
-addCustomer(customerHashMap, Monty);
-
-function tests(){
   ["7778889999","1112223333","2223334444","5556667777"].forEach(number => {
-    console.log(number, (lookUpCustomer(number)));
+    console.log(salesSystem[number].description());
   })
 }
 
-tests()
+runSalesSystem()
 
 
 
@@ -82,51 +69,39 @@ tests()
 inventory using a hash table for storage.
 
 class Inventory {
-  constructor(inventoryItem, quantity, inventoryId) {
-    this.inventoryItem = inventoryItem;
+  constructor(item, quantity, id) {
+    this.item = item;
     this.quantity = quantity;
-    this.inventoryId = inventoryId
+    this.id = id;
+  }
+
+  description(){
+    return "Item: " + this.item + ", Quantity: " + this.quantity + ", id: " + this.id;
   }
 }
 
-function getHashCode(item){
-  return parseInt(item.inventoryId);
-}
+function runSalesSystem(){
 
-function addItem(array, item){
-    console.log(item)
-    const hashCode = parseInt(item.inventoryId)
-    console.log(hashCode)
-    const hashKey = hashCode % (array.length);
-    console.log(hashKey)
-    array[hashKey] = item;
-}
-
-function lookUpItem(inventoryId){
-  var itemIndex = parseInt(inventoryId) % inventoryHashMap.length;
-  return inventoryHashMap[itemIndex];
-}
-
-var inventoryHashMap = new Array();
-
-var bike = new Inventory("bike", 12, "011243")
+  var bike = new Inventory("bike", 12, "011243")
 console.log(bike)
 var ball = new Inventory("ball", 67, "011244")
 var kite = new Inventory("kite", 42, "011245")
 var doll = new Inventory("doll", 36, "011246")
 
-addItem(inventoryHashMap, bike);
-addItem(inventoryHashMap, ball);
-addItem(inventoryHashMap, kite);
-addItem(inventoryHashMap, doll);
+  var salesSystem = {}
 
-function tests(){
-  ["011243","011244","011245","011246"].forEach(number => {
-    console.log(number, (lookUpItem(number)));
+  salesSystem[bike.id] = bike;
+  salesSystem[ball.id] = ball;
+  salesSystem[kite.id] = kite;
+  salesSystem[doll.id] = doll;
+
+
+  ["011243","011244","011245","011246"].forEach(id => {
+    console.log(salesSystem[id].description());
   })
 }
 
-tests()
+runSalesSystem()
 
 
 8. Build a system that allows digital copies of newspapers to be entered and searched
@@ -136,45 +111,31 @@ class Newspaper {
   constructor(publisher, date, article) {
     this.publisher = publisher;
     this.date = date;
-    this.article = article
+    this.article = article;
+  }
+
+  description(){
+    return "Publisher: " + this.publisher + ", Date: " + this.date + ", Article: " + this.article;
   }
 }
 
-function getHashCode(item){
-  return parseInt(item.article);
-}
+function runSalesSystem(){
 
-function addItem(array, item){
-    console.log(item)
-    const hashCode = parseInt(item.inventoryId)
-    console.log(hashCode)
-    const hashKey = hashCode % (array.length);
-    console.log(hashKey)
-    array[hashKey] = item;
-}
-
-function lookUpItem(article){
-  var itemIndex = parseInt(article) % inventoryHashMap.length;
-  return inventoryHashMap[itemIndex];
-}
-
-var inventoryHashMap = new Array();
-
-var herald = new Newspaper("herald", "2019", "E.coli Outbreak! No more salads for you!")
-console.log(herald)
+ var herald = new Newspaper("herald", "2019", "E.coli Outbreak! No more salads for you!")
 var cnn = new Newspaper("cnn", "2018", "Stay home and bust out the hot cocoa! A blizzard is coming!")
 var usaToday = new Newspaper("usaToday", "2020", "Blockbuster is making a comeback!")
 
+  var salesSystem = {}
 
-addItem(inventoryHashMap, herald);
-addItem(inventoryHashMap, cnn);
-addItem(inventoryHashMap, usaToday);
+  salesSystem[herald.article] = herald;
+  salesSystem[cnn.article] = cnn;
+  salesSystem[usaToday.article] = usaToday;
 
 
-function tests(){
-  ["herald","cnn","usaToday"].forEach(number => {
-    console.log(number, (lookUpItem(number)));
+
+  ["E.coli Outbreak! No more salads for you!","Stay home and bust out the hot cocoa! A blizzard is coming!","Blockbuster is making a comeback!"].forEach(article => {
+    console.log(salesSystem[article].description());
   })
 }
 
-tests()
+runSalesSystem()
