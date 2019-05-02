@@ -30,38 +30,53 @@ numbers. Store this information in a hash table. given a phone number, get name
 address of a customer.
 
 class Customer {
-  constructor(name, address, phoneNumber) {
-    this.name = name;
-    this.address = address;
-    this.phoneNumber = phoneNumber;
-  }
+    constructor(name, address, phoneNumber) {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+    }
+  
+}
 
-  description(){
-    return "Name: " + this.name + ", Address: " + this.address;
+class HashTable {
+    constructor(bucketCount) {
+       this.table = [];
+       this.bucketCount = bucketCount;
+    }
+  
+  hash(key){
+    let num = parseInt(key, 10);
+    return num % this.bucketCount;
+  }
+  
+  add(key, value){
+    var index = this.hash(key); 
+    this.table[index] = value;
+  }
+  
+  find(key){
+    var index = this.hash(key);
+    return this.table[index];
+  }
+  
+  remove(key){
+    var index = this.hash(key);
+    this.table[index] = null;
   }
 }
 
-function runSalesSystem(){
+const customerTable = new HashTable(10);
 
-  var Justin = new Customer("Justin", "123 Address St", "7778889999")
-  var Jim = new Customer("Jim", "174 Address Ln", "1112223333")
-  var Sam = new Customer("Sam", "210 Address Ave", "2223334444")
-  var Monty = new Customer("Monty", "560 Address Dr", "5556667777")
-
-  var salesSystem = {}
-
-  salesSystem[Justin.phoneNumber] = Justin;
-  salesSystem[Jim.phoneNumber] = Jim;
-  salesSystem[Sam.phoneNumber] = Sam;
-  salesSystem[Monty.phoneNumber] = Monty;
-
-
-  ["7778889999","1112223333","2223334444","5556667777"].forEach(number => {
-    console.log(salesSystem[number].description());
-  })
-}
-
-runSalesSystem()
+const justin = new Customer("Justin", "123 Address St", "7778889999");
+            jim = new Customer("Jim", "174 Address Ln", "1112223333");
+            sam = new Customer("Sam", "210 Address Ave", "2223334444");
+            monty = new Customer("Monty", "560 Address Dr", "5556667777");
+      
+     
+customerTable.add(justin.phoneNumber,justin);
+customerTable.add(jim.phoneNumber, jim);
+customerTable.add(sam.phoneNumber, sam);
+customerTable.add(monty.phoneNumber, monty);
 
 
 
@@ -69,40 +84,57 @@ runSalesSystem()
 inventory using a hash table for storage.
 
 class Inventory {
-  constructor(item, quantity, id) {
+   constructor(item, quantity, id) {
     this.item = item;
     this.quantity = quantity;
     this.id = id;
   }
+  
+}
 
-  description(){
-    return "Item: " + this.item + ", Quantity: " + this.quantity + ", id: " + this.id;
+class HashTable {
+    constructor(bucketCount) {
+       this.table = [];
+       this.bucketCount = bucketCount;
+    }
+  
+  hash(key){
+    let num = parseInt(key, 10);
+    return num % this.bucketCount;
+  }
+  
+  add(key, value){
+    var index = this.hash(key); 
+    this.table[index] = value;
+  }
+  
+  find(key){
+    var index = this.hash(key);
+    return this.table[index];
+  }
+  
+  remove(key){
+    var index = this.hash(key);
+    this.table[index] = null;
   }
 }
 
-function runSalesSystem(){
+const salesSystem = new HashTable(10);
 
-  var bike = new Inventory("bike", 12, "011243")
+var bike = new Inventory("bike", 12, "011243")
 console.log(bike)
 var ball = new Inventory("ball", 67, "011244")
 var kite = new Inventory("kite", 42, "011245")
 var doll = new Inventory("doll", 36, "011246")
+      
+salesSystem.add(bike.id);
+salesSystem.add(ball.id);
+salesSystem.add(kite.id);
+salesSystem.add(doll.id);
 
-  var salesSystem = {}
+salesSystem.remove(doll.id);
 
-  salesSystem[bike.id] = bike;
-  salesSystem[ball.id] = ball;
-  salesSystem[kite.id] = kite;
-  salesSystem[doll.id] = doll;
-
-
-  ["011243","011244","011245","011246"].forEach(id => {
-    console.log(salesSystem[id].description());
-  })
-}
-
-runSalesSystem()
-
+console.log(salesSystem.table)
 
 8. Build a system that allows digital copies of newspapers to be entered and searched
 by publisher and publication date. Use hash tables to store the necessary data.
@@ -113,29 +145,46 @@ class Newspaper {
     this.date = date;
     this.article = article;
   }
-
-  description(){
-    return "Publisher: " + this.publisher + ", Date: " + this.date + ", Article: " + this.article;
+}
+class HashTable {
+    constructor(bucketCount) {
+       this.table = [];
+       this.bucketCount = bucketCount;
+    }
+  
+  hash(publisher, date){
+    let sum = 0;
+    let newString = publisher.concat(date);
+    for (var i = 0; i < newString.length; i++) {
+       sum = newString.charCodeAt(i) + sum;
+    } 
+    return sum % this.bucketCount;
+  }
+  
+  add(key, value){
+    var index = this.hash(key); 
+    this.table[index] = value;
+  }
+  
+  find(key){
+    var index = this.hash(key);
+    return this.table[index];
+  }
+  
+  remove(key){
+    var index = this.hash(key);
+    this.table[index] = null;
   }
 }
 
-function runSalesSystem(){
+const salesSystem = new HashTable(10);
+
+salesSystem.hash("usaToday", "cnn")
 
  var herald = new Newspaper("herald", "2019", "E.coli Outbreak! No more salads for you!")
-var cnn = new Newspaper("cnn", "2018", "Stay home and bust out the hot cocoa! A blizzard is coming!")
-var usaToday = new Newspaper("usaToday", "2020", "Blockbuster is making a comeback!")
-
-  var salesSystem = {}
-
-  salesSystem[herald.article] = herald;
-  salesSystem[cnn.article] = cnn;
-  salesSystem[usaToday.article] = usaToday;
+ var cnn = new Newspaper("cnn", "2018", "Stay home and bust out the hot cocoa! A blizzard is coming!")
+ var usaToday = new Newspaper("usaToday", "2020", "Blockbuster is making a comeback!")
 
 
 
-  ["E.coli Outbreak! No more salads for you!","Stay home and bust out the hot cocoa! A blizzard is coming!","Blockbuster is making a comeback!"].forEach(article => {
-    console.log(salesSystem[article].description());
-  })
-}
-
-runSalesSystem()
+ 
